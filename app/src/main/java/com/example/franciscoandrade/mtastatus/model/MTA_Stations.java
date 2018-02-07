@@ -8,13 +8,13 @@ import java.util.List;
 
 public class MTA_Stations {
 
-    List <result> results;
+    List <Results> result;
 
-    public List<result> getResults() {
-        return results;
+    public List<Results> getResult() {
+        return result;
     }
 
-    public class result {
+    public class Results {
         String id;
         String name;
 
