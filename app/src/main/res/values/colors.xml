@@ -10,5 +10,14 @@
     <color name="colorYellow">#FFFFD000</color>
     <color name="colorBlack">#000</color>
     <color name="colorDark">#424242</color>
-
+    <color name="ACE">#0039A6</color>
+    <color name="BDFM">#FF6319</color>
+    <color name="G">#6CBE45</color>
+    <color name="JZ">#996633</color>
+    <color name="L">#A7A9AC</color>
+    <color name="NQR">#FCCC0A</color>
+    <color name="S">#808183</color>
+    <color name="onetwothree">#EE352E</color>
+    <color name="fourfiveSix">#00933C</color>
+    <color name="seven">#B933AD</color>
 </resources>
