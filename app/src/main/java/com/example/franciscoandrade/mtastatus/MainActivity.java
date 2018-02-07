@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private List<StationsEntity> stationsEntityList;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,26 +37,29 @@ public class MainActivity extends AppCompatActivity {
         showToolBar("MTA STATUS", false);
 
         stationsEntityList = new ArrayList<>();
+        makeAndFillDatabase();
 
-
-        API_Caller();
 
 
     }
 
-    private void checkIfDBIsUpdated() {
+    private void makeAndFillDatabase() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                List<StationsEntity> allStations;
 
                 db = Room.databaseBuilder(getApplicationContext(),
                         AppDatabase.class, "Stations").build();
 
-                allStations = db.stationsDao().getALL();
-                Log.d(TAG, "size of stations list: " + String.valueOf(allStations.size()));
-                for (StationsEntity s : allStations) {
-                    Log.d(TAG, "Stations have been saved: ID:" + s.getStationID() + " Name: " + s.getStationName());
+                stationsEntityList = db.stationsDao().getALL();
+                if (stationsEntityList.size() > 0) {
+                    Log.d(TAG, "database is filled");
+                    Log.d(TAG, "size of stations list: " + String.valueOf(stationsEntityList.size()));
+                    for (StationsEntity s : stationsEntityList) {
+                        Log.d(TAG, "Stations have been saved: ID:" + s.getStationID() + " Name: " + s.getStationName());
+                    }
+                } else {
+                    API_Caller();
                 }
                 db.close();
             }
@@ -79,21 +81,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.mainBtn:
                 Intent intent = new Intent(this, CurrentLocationActivity.class);
                 startActivity(intent);
                 break;
-                default:
-                    Intent intent2 = new Intent(this, StationsActivity.class);
-                    startActivity(intent2);
-                    break;
+            default:
+                Intent intent2 = new Intent(this, StationsActivity.class);
+                startActivity(intent2);
+                break;
 
         }
 
     }
 
-    public void API_Caller(){
+    public void API_Caller() {
 
 
         mtaService = RetrofitClient.getRetrofit("http://mtaapi.herokuapp.com/")
@@ -103,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
         getStations.enqueue(new Callback<MTA_Stations>() {
             @Override
             public void onResponse(Call<MTA_Stations> call, Response<MTA_Stations> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     MTA_Stations mta_stations;
                     mta_stations = response.body();
                     Log.d(TAG, "onResponse: " + mta_stations.getResult().get(0).getId());
-                    for (MTA_Stations.Results r: mta_stations.getResult()) {
-                        stationsEntityList.add(new StationsEntity(r.getId(),r.getName()));
+                    for (MTA_Stations.Results r : mta_stations.getResult()) {
+                        stationsEntityList.add(new StationsEntity(r.getId(), r.getName()));
                     }
 
                     updateDatabase();
@@ -133,6 +135,31 @@ public class MainActivity extends AppCompatActivity {
                         AppDatabase.class, "Stations").build();
 
                 db.stationsDao().insertAll(stationsEntityList.toArray(new StationsEntity[stationsEntityList.size()]));
+                db.close();
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkIfDBIsUpdated() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<StationsEntity> allStations;
+
+                db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "Stations").build();
+
+                allStations = db.stationsDao().getALL();
+                Log.d(TAG, "size of stations list: " + String.valueOf(allStations.size()));
+                for (StationsEntity s : allStations) {
+                    Log.d(TAG, "Stations have been saved: ID:" + s.getStationID() + " Name: " + s.getStationName());
+                }
                 db.close();
             }
         });
