@@ -28,6 +28,10 @@ public class DataBase_Helper {
     private List<StationsEntity> stationsEntityList;
     private Context context;
 
+    public DataBase_Helper(Context context) {
+        this.context = context;
+    }
+
     public void makeAndFillDatabase() {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -39,23 +43,13 @@ public class DataBase_Helper {
                 if (stationsEntityList.size() > 0) {
                     Log.d(TAG, "database is filled");
                     Log.d(TAG, "size of stations list: " + String.valueOf(stationsEntityList.size()));
-//                    newSet = new HashSet<>();
-//                    listTrains= new ArrayList<>();
-//                    HashMap<String, String> listaDetails= new HashMap<>();
                     for (StationsEntity s : stationsEntityList) {
                         Log.d(TAG, "Stations have been saved: ID:" + s.getStationID() + " Name: " + s.getStationName());
-//                        newSet.add(s.getStationID().charAt(0));
-//                        listTrains.add(s);
                     }
-//                    for (Character c: newSet) {
-//                        Log.d("LINE==", "onResponse: "+c);
-//                    }
-//                    linesAdapter.addLines(listTrains);
-
+                    db.close();
                 } else {
                     API_Caller();
                 }
-                db.close();
             }
         });
         thread.start();
@@ -67,6 +61,7 @@ public class DataBase_Helper {
 
     public void API_Caller() {
 
+        db.close();
         mtaService = RetrofitClient.getRetrofit("http://mtaapi.herokuapp.com/")
                 .create(MTA_Service.class);
 

@@ -22,7 +22,7 @@ public class NetworkJob extends JobService {
     public boolean onStartJob(JobParameters params) {
         Log.d(TAG, "onStartJob: on start called");
 
-        DataBase_Helper dbHelper = new DataBase_Helper();
+        DataBase_Helper dbHelper = new DataBase_Helper(this);
         dbHelper.makeAndFillDatabase();
 
         return true;
