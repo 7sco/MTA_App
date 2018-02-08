@@ -1,18 +1,18 @@
-package com.example.franciscoandrade.mtastatus;
+package com.example.franciscoandrade.mtastatus.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.franciscoandrade.mtastatus.R;
+import com.example.franciscoandrade.mtastatus.StationsActivity;
 import com.example.franciscoandrade.mtastatus.database.StationsEntity;
 
 import java.util.ArrayList;
-
-import java.util.HashMap;
-import java.util.HashSet;
 
 import java.util.List;
 
@@ -40,11 +40,18 @@ public class LinesAdapter extends RecyclerView.Adapter <LinesAdapter.LinesViewHo
     }
 
     @Override
-    public void onBindViewHolder(LinesAdapter.LinesViewHolder holder, int position) {
-        char line= set.get(position);
+    public void onBindViewHolder(LinesAdapter.LinesViewHolder holder, final int position) {
+        final char line= set.get(position);
         colorSorting(holder, line);
         holder.lineTV.setText(String.valueOf(line));
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, StationsActivity.class);
+                intent.putExtra("station_line", String.valueOf(line));
+                context.startActivity(intent);
+            }
+        });
     }
 
     private void colorSorting(LinesViewHolder holder, char line) {
@@ -153,11 +160,11 @@ public class LinesAdapter extends RecyclerView.Adapter <LinesAdapter.LinesViewHo
 
 
     public class LinesViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView, lineInfoTV;
+        private TextView lineTV, lineInfoTV;
 
         public LinesViewHolder(View itemView) {
             super(itemView);
-            textView =(TextView)itemView.findViewById(R.id.lineTV);
+            lineTV =(TextView)itemView.findViewById(R.id.lineTV);
             lineInfoTV=(TextView)itemView.findViewById(R.id.lineInfoTV);
         }
     }
