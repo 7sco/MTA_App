@@ -1,10 +1,12 @@
 package com.example.franciscoandrade.mtastatus;
 
+import android.app.NotificationManager;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private LinesAdapter linesAdapter;
     private Set<Character> newSet;
     private List<StationsEntity> listTrains;
+    private static final int NOTIFICATION_ID = 123;
+    private static final String NOTIFICATION_CHANNEL = "SUBWAY_LINES";
+
 
 
     @Override
@@ -54,6 +59,23 @@ public class MainActivity extends AppCompatActivity {
 
         stationsEntityList = new ArrayList<>();
         makeAndFillDatabase();
+
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)
+                .setSmallIcon(R.drawable.stationicon)
+                .setContentTitle("You've been notified!")
+                .setContentText("This is your notification text.");
+        notificationManager.notify(NOTIFICATION_ID,builder.build());
+
+//
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)
+//                .setSmallIcon(R.drawable.stationicon)
+//                .setContentTitle("Subway Lines")
+//                .setContentText("!")
+//                .setDefaults(Notification.DEFAULT_ALL);
+//        notificationManager.notify(NOTIFICATION_ID, builder.build());
 
     }
 
@@ -178,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+
 
         Intent intent = new Intent(this, CurrentLocationActivity.class);
         startActivity(intent);
