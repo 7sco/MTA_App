@@ -1,127 +1,126 @@
-package com.example.franciscoandrade.mtastatus;
+package com.example.franciscoandrade.mtastatus.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.franciscoandrade.mtastatus.database.StationsEntity;
+import com.example.franciscoandrade.mtastatus.R;
+import com.example.franciscoandrade.mtastatus.StationsActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by franciscoandrade on 2/7/18.
+ * Created by Wayne Kellman on 2/7/18.
  */
 
-public class LinesAdapter extends RecyclerView.Adapter <LinesAdapter.LinesViewHolder>{
-    List<StationsEntity> listTrains ;
-    Context context;
+public class StationLineAdapter extends RecyclerView.Adapter<StationLineAdapter.ViewHolder> {
 
+    public List<String> stationLines;
+    public Context context;
 
-    public LinesAdapter( Context context) {
-        listTrains= new ArrayList<>();
+    public StationLineAdapter(List<String> stationLines, Context context) {
+        this.stationLines = stationLines;
         this.context = context;
     }
 
     @Override
-    public LinesAdapter.LinesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lines_item_view, parent, false);
-        return new LinesAdapter.LinesViewHolder(view);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.station_line_itemview, parent, false);
 
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(LinesAdapter.LinesViewHolder holder, int position) {
-
-
-
-        char line= listTrains.get(position).getStationID().charAt(0);
-
-        colorSorting(holder, line);
-
-        String lineInfo= listTrains.get(position).getStationName();
-
-        holder.textView.setText(String.valueOf(line));
-        holder.lineInfoTV.setText(lineInfo);
-        //Log.d("ITERATOR", "onBindViewHolder: "+newSet.iterator().);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        holder.textView.setText(stationLines.get(position));
+        colorSorting(holder, stationLines.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, StationsActivity.class);
+                intent.putExtra("station_line", stationLines.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
-    private void colorSorting(LinesViewHolder holder, char line) {
-        switch (line){
-            case 'A':
+    private void colorSorting(ViewHolder holder, String line) {
+        switch (line) {
+            case "A":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
                 break;
-            case 'E':
+            case "E":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
                 break;
-            case 'C':
+            case "C":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
                 break;
 
-            case 'B':
+            case "B":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
                 break;
 
-            case 'D':
+            case "D":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
                 break;
-            case 'F':
+            case "F":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
                 break;
-            case 'M':
+            case "M":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
                 break;
 
-            case 'G':
+            case "G":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.G));
                 break;
-            case 'J':
+            case "J":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.JZ));
                 break;
-            case 'Z':
+            case "Z":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.JZ));
                 break;
-            case 'L':
+            case "L":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.L));
                 break;
 
-            case 'N':
+            case "N":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
                 break;
 
-            case 'Q':
+            case "Q":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
                 break;
 
-            case 'R':
+            case "R":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
                 break;
 
-            case 'S':
+            case "S":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.S));
                 break;
-            case '1':
+            case "1":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
                 break;
-            case '2':
+            case "2":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
                 break;
-            case '3':
+            case "3":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
                 break;
-            case '4':
+            case "4":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
                 break;
-            case '5':
+            case "5":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
                 break;
-            case '6':
+            case "6":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
                 break;
-            case '7':
+            case "7":
                 holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.seven));
                 break;
         }
@@ -129,22 +128,17 @@ public class LinesAdapter extends RecyclerView.Adapter <LinesAdapter.LinesViewHo
 
     @Override
     public int getItemCount() {
-        return listTrains.size();
+        return stationLines.size();
     }
 
-    public void addLines(List<StationsEntity> newSetList ) {
-        listTrains.addAll(newSetList);
-        notifyDataSetChanged();
-    }
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView textView;
 
-    public class LinesViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView, lineInfoTV;
-
-        public LinesViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            textView =(TextView)itemView.findViewById(R.id.lineTV);
-            lineInfoTV=(TextView)itemView.findViewById(R.id.lineInfoTV);
+
+            textView = itemView.findViewById(R.id.station_line_name);
         }
     }
 }
