@@ -10,6 +10,10 @@ import android.widget.TextView;
 import com.example.franciscoandrade.mtastatus.database.StationsEntity;
 
 import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.HashSet;
+
 import java.util.List;
 
 /**
@@ -18,11 +22,13 @@ import java.util.List;
 
 public class LinesAdapter extends RecyclerView.Adapter <LinesAdapter.LinesViewHolder>{
     List<StationsEntity> listTrains ;
+    List <Character>  set;
     Context context;
 
 
     public LinesAdapter( Context context) {
         listTrains= new ArrayList<>();
+        set= new ArrayList<>();
         this.context = context;
     }
 
@@ -35,105 +41,113 @@ public class LinesAdapter extends RecyclerView.Adapter <LinesAdapter.LinesViewHo
 
     @Override
     public void onBindViewHolder(LinesAdapter.LinesViewHolder holder, int position) {
-
-
-
-        char line= listTrains.get(position).getStationID().charAt(0);
-
+        char line= set.get(position);
         colorSorting(holder, line);
+        holder.lineTV.setText(String.valueOf(line));
 
-        String lineInfo= listTrains.get(position).getStationName();
-
-        holder.textView.setText(String.valueOf(line));
-        holder.lineInfoTV.setText(lineInfo);
-        //Log.d("ITERATOR", "onBindViewHolder: "+newSet.iterator().);
     }
 
     private void colorSorting(LinesViewHolder holder, char line) {
         switch (line){
             case 'A':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
+                holder.lineInfoTV.setText("8TH AVE Express");
                 break;
             case 'E':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
+                holder.lineInfoTV.setText("Eight Avenue Local");
                 break;
             case 'C':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.ACE));
+                holder.lineInfoTV.setText("Eight Avenue Local");
                 break;
-
             case 'B':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
+                holder.lineInfoTV.setText("Central Park West Local/\n6 Avenue Express");
                 break;
-
             case 'D':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
+                holder.lineInfoTV.setText("6 Avenue Express");
                 break;
             case 'F':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
+                holder.lineInfoTV.setText("Queens Blvd Local");
                 break;
             case 'M':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.BDFM));
+                holder.lineInfoTV.setText("8TH AVE Express");
                 break;
-
             case 'G':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.G));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.G));
+                holder.lineInfoTV.setText("Brooklyn-Queens\nCrosstown Local");
                 break;
             case 'J':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.JZ));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.JZ));
+                holder.lineInfoTV.setText("Nassau Street Express");
                 break;
             case 'Z':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.JZ));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.JZ));
+                holder.lineInfoTV.setText("Nassau Street Express");
                 break;
             case 'L':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.L));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.L));
+                holder.lineInfoTV.setText("14 Street-Canarsie Local");
                 break;
-
             case 'N':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
+                holder.lineInfoTV.setText("Broadway Express");
                 break;
-
             case 'Q':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
+                holder.lineInfoTV.setText("Second Av-broadway Express");
                 break;
-
             case 'R':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.NQR));
+                holder.lineInfoTV.setText("Queens Blvd-4 Ave Local");
                 break;
-
             case 'S':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.S));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.S));
+                holder.lineInfoTV.setText("42 St Shuttle ");
                 break;
             case '1':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
+                holder.lineInfoTV.setText("Broadway-7 Av Local");
                 break;
             case '2':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
+                holder.lineInfoTV.setText("Seventh Av Express");
                 break;
             case '3':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.onetwothree));
+                holder.lineInfoTV.setText("Seventh Av Express");
                 break;
             case '4':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
+                holder.lineInfoTV.setText("Lexington Av Express");
                 break;
             case '5':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
+                holder.lineInfoTV.setText("Lexington Av Express");
                 break;
             case '6':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.fourfiveSix));
+                holder.lineInfoTV.setText("Lexington Av Local");
                 break;
             case '7':
-                holder.textView.setBackgroundTintList(context.getResources().getColorStateList(R.color.seven));
+                holder.lineTV.setBackgroundTintList(context.getResources().getColorStateList(R.color.seven));
+                holder.lineInfoTV.setText("Flushing Local");
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return listTrains.size();
+        return set.size();
     }
 
-    public void addLines(List<StationsEntity> newSetList ) {
+    public void addLines(List<StationsEntity> newSetList, List <Character> listOfLines ) {
         listTrains.addAll(newSetList);
+        set.addAll(listOfLines);
         notifyDataSetChanged();
     }
 

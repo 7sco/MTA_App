@@ -98,18 +98,20 @@ public class MainActivity extends AppCompatActivity {
                 if (stationsEntityList.size() > 0) {
                     Log.d(TAG, "database is filled");
                     Log.d(TAG, "size of stations list: " + String.valueOf(stationsEntityList.size()));
-//                    newSet = new HashSet<>();
-//                    listTrains= new ArrayList<>();
-//                    HashMap<String, String> listaDetails= new HashMap<>();
+                    newSet = new HashSet<>();
+                    listTrains= new ArrayList<>();
+                    HashMap<String, String> listaDetails= new HashMap<>();
+                    List <Character> listOfLines= new ArrayList<>();
+                    HashMap<String, List<String>> listaEntity= new HashMap<>();
                     for (StationsEntity s : stationsEntityList) {
                         Log.d(TAG, "Stations have been saved: ID:" + s.getStationID() + " Name: " + s.getStationName());
-//                        newSet.add(s.getStationID().charAt(0));
-//                        listTrains.add(s);
+                        newSet.add(s.getStationID().charAt(0));
+                        listTrains.add(s);
                     }
-//                    for (Character c: newSet) {
-//                        Log.d("LINE==", "onResponse: "+c);
-//                    }
-//                    linesAdapter.addLines(listTrains);
+                    for (Character c: newSet) {
+                        listOfLines.add(c);
+                    }
+                    linesAdapter.addLines(listTrains, listOfLines);
 
                 } else {
                     API_Caller();
