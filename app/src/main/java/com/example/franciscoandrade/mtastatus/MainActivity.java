@@ -1,11 +1,15 @@
 package com.example.franciscoandrade.mtastatus;
 
+
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,8 +24,6 @@ import com.example.franciscoandrade.mtastatus.database.StationsEntity;
 import com.example.franciscoandrade.mtastatus.model.MTA_Stations;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,15 +42,23 @@ public class MainActivity extends AppCompatActivity {
     private Set<Character> newSet;
     private List<Character> newList;
 
-
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MTA_JobScheduler.start(getApplicationContext());
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)
+                .setSmallIcon(R.drawable.stationicon)
+                .setContentTitle("MTA Notification")
+                .setContentText("Current Subway Lines Running").setContentIntent(pendingIntent);
+        notificationManager.notify(NOTIFICATION_ID,builder.build());
+
+        MTA_JobScheduler.start(getApplicationContext());
         Handler handler1 = new Handler();
         handler1.postDelayed(new Runnable() {
             @Override
@@ -116,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onClick(View view) {
+
 
         Intent intent = new Intent(this, CurrentLocationActivity.class);
         startActivity(intent);
