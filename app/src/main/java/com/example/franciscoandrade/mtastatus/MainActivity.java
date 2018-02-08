@@ -1,6 +1,7 @@
 package com.example.franciscoandrade.mtastatus;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
@@ -21,8 +22,6 @@ import com.example.franciscoandrade.mtastatus.database.StationsEntity;
 import com.example.franciscoandrade.mtastatus.model.MTA_Stations;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -90,12 +89,16 @@ public class MainActivity extends AppCompatActivity {
         stationsEntityList = new ArrayList<>();
         makeAndFillDatabase();
 
+        Intent intent = new Intent(this, MainActivity.class);
+//        int requestID = (int) System.currentTimeMillis(); // Unique requestID to differentiate between various notification with same notification ID
+//        int flags = PendingIntent.FLAG_CANCEL_CURRENT; // Cancel old intent and create new one
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.stationicon)
-                .setContentTitle("You've been notified!")
-                .setContentText("This is your notification text.");
+                .setContentTitle("MTA Notification")
+                .setContentText("Current Subway Lines Running").setContentIntent(pendingIntent);
         notificationManager.notify(NOTIFICATION_ID,builder.build());
 
 //
