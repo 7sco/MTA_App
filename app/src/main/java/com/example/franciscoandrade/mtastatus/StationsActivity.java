@@ -49,12 +49,7 @@ public class StationsActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "Stations").build();
 
-        List<StationsEntity> fullList = db.stationsDao().getALL();
-        for (StationsEntity s : fullList) {
-            if (s.getStationID().substring(0,1).equals(line)){
-                lineList.add(s);
-            }
-        }
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
