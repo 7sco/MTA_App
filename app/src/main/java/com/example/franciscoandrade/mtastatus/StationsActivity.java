@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.example.franciscoandrade.mtastatus.controller.LinesAdapter;
+import com.example.franciscoandrade.mtastatus.controller.StationsAdapter;
 import com.example.franciscoandrade.mtastatus.database.AppDatabase;
 import com.example.franciscoandrade.mtastatus.database.StationsEntity;
 
@@ -21,6 +24,7 @@ public class StationsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AppDatabase db;
     private List<StationsEntity> lineList;
+    StationsAdapter stationsAdapter;
 
 
     @Override
@@ -37,8 +41,20 @@ public class StationsActivity extends AppCompatActivity {
         lineList = new ArrayList<>();
         lineLetterTV.setText(line);
 
+        stationsAdapter= new StationsAdapter(this);
+        recyclerView.setAdapter(stationsAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "Stations").build();
+
+        List<StationsEntity> fullList = db.stationsDao().getALL();
+        for (StationsEntity s : fullList) {
+            if (s.getStationID().substring(0,1).equals(line)){
+                lineList.add(s);
+            }
+        }
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -48,21 +64,22 @@ public class StationsActivity extends AppCompatActivity {
                         lineList.add(s);
                     }
                 }
+                db.close();
             }
         });
         thread.start();
+
         try {
             thread.join();
+            for (StationsEntity c: lineList){
+                Log.d("SECONDD", "onCreate: "+c.getStationID());
+            }
+            stationsAdapter.addLines(lineList);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        LinesAdapter linesAdapter = new LinesAdapter(this);
-        linesAdapter.addLines(lineList);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(linesAdapter);
 
     }
     private void showToolBar(String tittle, boolean upButton) {
