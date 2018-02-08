@@ -71,15 +71,17 @@ public class MainActivity extends AppCompatActivity {
                     newSet = new HashSet<>();
                     listTrains= new ArrayList<>();
                     HashMap<String, String> listaDetails= new HashMap<>();
+                    List <Character> listOfLines= new ArrayList<>();
+                    HashMap<String, List<String>> listaEntity= new HashMap<>();
                     for (StationsEntity s : stationsEntityList) {
                         Log.d(TAG, "Stations have been saved: ID:" + s.getStationID() + " Name: " + s.getStationName());
                         newSet.add(s.getStationID().charAt(0));
                         listTrains.add(s);
                     }
                     for (Character c: newSet) {
-                        Log.d("LINE==", "onResponse: "+c);
+                        listOfLines.add(c);
                     }
-                    linesAdapter.addLines(listTrains);
+                    linesAdapter.addLines(listTrains, listOfLines);
 
                 } else {
                     API_Caller();
