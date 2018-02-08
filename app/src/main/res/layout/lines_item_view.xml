@@ -10,8 +10,7 @@
         android:layout_marginTop="5dp"
         android:elevation="8dp"
         android:foreground="?android:selectableItemBackground"
-        card_view:cardCornerRadius="8dp"
-        android:onClick="onClick">
+        card_view:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,10 +25,12 @@
                 android:background="@drawable/round_shape"
                 android:backgroundTint="@color/colorYellow"
                 android:gravity="center"
-                android:text="N"
+                android:layout_gravity="center"
+                android:text="2"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="40sp"
+                android:textSize="35sp"
+                android:paddingBottom="4dp"
                 android:textStyle="bold" />
 
             <TextView
