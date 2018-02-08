@@ -1,9 +1,7 @@
 package com.example.franciscoandrade.mtastatus;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +10,11 @@ import android.widget.TextView;
 import com.example.franciscoandrade.mtastatus.database.StationsEntity;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by franciscoandrade on 2/7/18.
@@ -45,6 +44,7 @@ public class LinesAdapter extends RecyclerView.Adapter <LinesAdapter.LinesViewHo
         char line= set.get(position);
         colorSorting(holder, line);
         holder.lineTV.setText(String.valueOf(line));
+
     }
 
     private void colorSorting(LinesViewHolder holder, char line) {
@@ -153,11 +153,11 @@ public class LinesAdapter extends RecyclerView.Adapter <LinesAdapter.LinesViewHo
 
 
     public class LinesViewHolder extends RecyclerView.ViewHolder {
-        private TextView lineTV, lineInfoTV;
+        private TextView textView, lineInfoTV;
 
         public LinesViewHolder(View itemView) {
             super(itemView);
-            lineTV=(TextView)itemView.findViewById(R.id.lineTV);
+            textView =(TextView)itemView.findViewById(R.id.lineTV);
             lineInfoTV=(TextView)itemView.findViewById(R.id.lineInfoTV);
         }
     }

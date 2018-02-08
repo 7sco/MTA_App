@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:clickable="true"
+    android:layout_marginTop="5dp"
+    android:elevation="8dp"
+    android:foreground="?android:selectableItemBackground"
+    card_view:cardCornerRadius="8dp">
+
+
+        <TextView
+            android:id="@+id/station_line_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_shape"
+            android:backgroundTint="@color/colorYellow"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:text="2"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="35sp"
+            android:paddingBottom="4dp"
+            android:textStyle="bold" />
+
+</android.support.v7.widget.CardView>

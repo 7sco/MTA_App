@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.franciscoandrade.mtastatus.Networking.MTA_Service;
 import com.example.franciscoandrade.mtastatus.Networking.RetrofitClient;
+import com.example.franciscoandrade.mtastatus.controller.StationLineAdapter;
 import com.example.franciscoandrade.mtastatus.database.AppDatabase;
 import com.example.franciscoandrade.mtastatus.database.StationsEntity;
 import com.example.franciscoandrade.mtastatus.model.MTA_Stations;
@@ -46,11 +47,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         showToolBar("MTA STATUS", false);
         linesRecyclerHolder=(RecyclerView)findViewById(R.id.linesRecyclerHolder);
-        linesAdapter= new LinesAdapter(this);
-        linesRecyclerHolder.setAdapter(linesAdapter);
+//        linesAdapter= new LinesAdapter(this);
+//        linesRecyclerHolder.setAdapter(linesAdapter);
+
+        List<String> stationLines = new ArrayList<>();
+        stationLines.add("1");
+        stationLines.add("2");
+        stationLines.add("3");
+        stationLines.add("4");
+        stationLines.add("5");
+        stationLines.add("6");
+        stationLines.add("7");
+        stationLines.add("A");
+        stationLines.add("C");
+        stationLines.add("E");
+        stationLines.add("B");
+        stationLines.add("D");
+        stationLines.add("F");
+        stationLines.add("M");
+        stationLines.add("J");
+        stationLines.add("Z");
+        stationLines.add("N");
+        stationLines.add("Q");
+        stationLines.add("R");
+        stationLines.add("W");
+        stationLines.add("G");
+        stationLines.add("L");
+        stationLines.add("S");
+
+        StationLineAdapter stationLineAdapter = new StationLineAdapter(stationLines, this);
+        linesRecyclerHolder.setAdapter(stationLineAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         linesRecyclerHolder.setLayoutManager(linearLayoutManager);
-        linesRecyclerHolder.setNestedScrollingEnabled(false);
+//        linesRecyclerHolder.setNestedScrollingEnabled(false);
+
 
         stationsEntityList = new ArrayList<>();
         makeAndFillDatabase();
