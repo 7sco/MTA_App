@@ -36,6 +36,7 @@ public class MTA_JobScheduler {
         JobInfo.Builder networkJob = new JobInfo
                 .Builder(NETWORK_JOB_ID, new ComponentName(appContext, NetworkJob.class))
                 .setPersisted(true)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPeriodic(1000,86400000);
                jobScheduler.schedule(networkJob.build());
     }
