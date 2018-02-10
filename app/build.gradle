@@ -56,4 +56,6 @@ dependencies {
 
     // Java8 support for Lifecycles
     implementation "android.arch.lifecycle:common-java8:1.1.0"
+
+    implementation 'com.squareup.okhttp:okhttp:2.4.0'
 }
