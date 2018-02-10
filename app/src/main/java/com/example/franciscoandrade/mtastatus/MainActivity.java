@@ -73,11 +73,9 @@ public class MainActivity extends AppCompatActivity {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-
                 db = Room.databaseBuilder(getApplicationContext(),
                         AppDatabase.class, "Stations").build();
                 stationsEntityList = db.stationsDao().getALL();
-
                 newSet = new HashSet<>();
                 for (StationsEntity s : stationsEntityList) {
                     Log.d(TAG, "Stations have been saved: ID:" + s.getStationID() + " Name: " + s.getStationName());
@@ -97,10 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
                             linesRecyclerHolder = (RecyclerView) findViewById(R.id.linesRecyclerHolder);
                             linesRecyclerHolder.setAdapter(linesAdapter);
-
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
                             linesRecyclerHolder.setLayoutManager(linearLayoutManager);
-
                         }
                     } // This is your code
                 };

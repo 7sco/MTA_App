@@ -12,7 +12,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/linesRecyclerHolder"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
@@ -23,6 +23,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:gravity="center"
+        android:visibility="gone"
         android:layout_gravity="center"
         android:text="Current Location"
         android:theme="@style/RaisedButtonDark"
